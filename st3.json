@@ -1,0 +1,287 @@
+{
+	"info": {
+		"_postman_id": "e64cc543-85ec-4135-98f7-178f49182ed6",
+		"name": "studentapicollection with variables",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "40170972",
+		"_collection_link": "https://sd5555-9432.postman.co/workspace/aaa-Workspace~027ebb90-ec16-4a29-a3a1-9b3bda5d1e2f/collection/40170972-e64cc543-85ec-4135-98f7-178f49182ed6?action=share&source=collection_link&creator=40170972"
+	},
+	"item": [
+		{
+			"name": "get single student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"the status code is 200\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"the status code is 200,201\",function()\r",
+							"{\r",
+							"pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"the status code is 200\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"content_type header is present\",function()\r",
+							"{\r",
+							"\r",
+							"});\r",
+							"const jsondata=pm.response.json();\r",
+							"pm.test(\"check array values\",function()\r",
+							"{\r",
+							"    pm.expect(jsondata.courses).to.include(\"python\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"check all values in array\",function()\r",
+							"{\r",
+							"    pm.expect(jsondata.courses).to.have.members([\"python\",\"java\"])\r",
+							"})\r",
+							"pm.test(\"check the values in all fields\",function()\r",
+							"{\r",
+							"    pm.expect(jsondata.id).to.eql(\"4\")\r",
+							"    pm.expect(jsondata.name).to.eql(\"manu\")\r",
+							"    pm.expect(jsondata.courses[0]).to.eql(\"python\")\r",
+							"\r",
+							"})\r",
+							"\r",
+							"pm.test(\"check data types\",function()\r",
+							"{\r",
+							"pm.expect(jsondata).to.be.an(\"object\")\r",
+							"})\r",
+							"var schema={\r",
+							"    \"type\": \"array\",\r",
+							"    \"items\": {\r",
+							"        \"type\": \"object\",\r",
+							"        \"properties\": {\r",
+							"            \"name\": {\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"phone\": {\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"courses\": {\r",
+							"                \"type\": \"array\",\r",
+							"                \"items\": {\r",
+							"                    \"type\": \"string\"\r",
+							"                }\r",
+							"            },\r",
+							"            \"id\": {\r",
+							"                \"type\": \"string\"\r",
+							"            }\r",
+							"        }\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"check schema\",function()\r",
+							"{\r",
+							"    pm.response.to.have.jsonSchema(schema)\r",
+							"})\r",
+							"console.log(pm.variables.get(\"url_loc\"))\r",
+							"console.log(pm.globals.get(\"url_global\"))\r",
+							"console.log(pm.collectionVariables.get(\"url-collect\"))\r",
+							"console.log(pm.environment.get(\"url-qd_envi\"))\r",
+							"pm.globals.unset(\"url_global1\",\"http://localhost:3000/students\");\r",
+							"pm.environment.unset(\"url-env1\",\"http://localhost:3000/students\");\r",
+							"pm.collectionVariables.unset(\"url_colle1\",\"http://localhost:3000/students\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set(\"url_loc\",\"http://localhost:3000/students\");\r",
+							"pm.globals.set(\"url_global1\",\"http://localhost:3000/students\");\r",
+							"pm.collectionVariables.set(\"url_colle1\",\"http://localhost:3000/students\");\r",
+							"pm.environment.set(\"url-env1\",\"http://localhost:3000/students\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": "{{url-env1}}/4"
+			},
+			"response": []
+		},
+		{
+			"name": "get all students data Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"check content type  exist\",function()\r",
+							"{\r",
+							"    pm.response.to.have.header(\"content-type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check content type is application/json\",function()\r",
+							"{\r",
+							"pm.expect(pm.response.headers.get(\"content-type\")).to.eql(\"application/json\")\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"check response time\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(30);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"const jsondata=pm.response.json();\r",
+							"\r",
+							"pm.test(\"check all values in fields\",function()\r",
+							"{\r",
+							"    pm.expect(jsondata[1].courses[0]).to.eql(\"python\")\r",
+							"})\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set(\"url_loc\",\"http://localhost:3000/students\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url_loc}}/"
+			},
+			"response": []
+		},
+		{
+			"name": "create new student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"the status code is 200\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"the status code is 200\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"uuuuv\",\r\n    \"phone\":\"900306\",\r\n    \"courses\":[\"python\",\"java\"]\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url_global}}"
+			},
+			"response": []
+		},
+		{
+			"name": "update student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"the status code is 200\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"the status code is 200\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"tej\",\r\n    \"phone\":\"900306\",\r\n    \"courses\":[\"python\",\"main frames\"]\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/students/5"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url-collect",
+			"value": "http://localhost:3000/students",
+			"type": "string"
+		}
+	]
+}
